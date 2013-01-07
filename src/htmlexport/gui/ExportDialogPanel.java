@@ -14,17 +14,14 @@
 package htmlexport.gui;
 
 import htmlexport.common.ExportOptions;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicBorders;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
 
-import org.jetbrains.annotations.NotNull;
-
-class ExportDialogPanel {
+public class ExportDialogPanel {
     // TODO2 use resources?
     private static final String ENABLED_CLIPBOARD_EXPORT_TITLE = "Clipboard export type";
     private static final String DISABLED_CLIPBOARD_EXPORT_TITLE = "Clipboard export type (disable for disk export)";
