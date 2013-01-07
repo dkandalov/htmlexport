@@ -20,22 +20,20 @@ import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.openapi.editor.ex.EditorEx;
 import com.intellij.openapi.editor.highlighter.EditorHighlighter;
 import com.intellij.openapi.editor.highlighter.HighlighterIterator;
+import com.intellij.openapi.editor.impl.DocumentMarkupModel;
 import com.intellij.openapi.editor.markup.MarkupModel;
 import com.intellij.openapi.editor.markup.RangeHighlighter;
 import com.intellij.openapi.editor.markup.TextAttributes;
+import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.ide.CopyPasteManager;
 import htmlexport.common.ExportOptions;
-import static htmlexport.common.ExportOptions.ExportFrom.SELECTION;
-import static htmlexport.common.ExportOptions.LineNumbering.NO_NUMBERS;
 import htmlexport.common.TextAttributesMerger;
 import htmlexport.common.TextAttributesRange;
-import static htmlexport.common.Utils.*;
 import htmlexport.html.CompleteFileHtmlGenerator;
 import htmlexport.html.HtmlGenerator;
-import htmlexport.html.SnippetHtmlGenerator;
 import htmlexport.html.PreTagModifier;
+import htmlexport.html.SnippetHtmlGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -44,6 +42,11 @@ import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static htmlexport.common.ExportOptions.ExportFrom.SELECTION;
+import static htmlexport.common.ExportOptions.LineNumbering.NO_NUMBERS;
+import static htmlexport.common.Utils.getOpenedTextEditor;
+import static htmlexport.common.Utils.getVirtualFileFromOpenedEditor;
 
 /**
  * User: dima
@@ -217,8 +220,8 @@ class Exporter {
             i.advance();
         }
 
-        MarkupModel markupModel = document.getMarkupModel(project);
-        RangeHighlighter[] highlighters = markupModel.getAllHighlighters();
+        MarkupModel documentModel = DocumentMarkupModel.forDocument(document, project, false);
+        RangeHighlighter[] highlighters = documentModel.getAllHighlighters();
         // assume that highlighters are already ordered by layer index, therefore no need to sort them
         for (RangeHighlighter highlighter : highlighters) {
             attributesList.add(new TextAttributesRange(highlighter));
@@ -228,7 +231,7 @@ class Exporter {
         for (RangeHighlighter highlighter : highlighters) {
             attributesList.add(new TextAttributesRange(highlighter));
         }
-        
+
         return attributesList;
     }
 
