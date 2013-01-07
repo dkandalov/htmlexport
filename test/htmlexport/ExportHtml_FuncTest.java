@@ -13,30 +13,33 @@
  */
 package htmlexport;
 
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.ide.CopyPasteManager;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.testFramework.LightCodeInsightTestCase;
-import static htmlexport.TestUtils.*;
 import htmlexport.common.ExportOptions;
-import htmlexport.common.Utils;
 import htmlexport.common.ExportOptionsTestBuilder;
-import static htmlexport.common.ExportOptions.ExportFrom.*;
-import static htmlexport.common.ExportOptions.ExportTo.*;
-import static htmlexport.common.ExportOptions.HtmlExportType.*;
-import static htmlexport.common.ExportOptions.LineNumbering.*;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.Nullable;
+import htmlexport.common.Utils;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
+
+import static htmlexport.TestUtils.TEST_DIR;
+import static htmlexport.TestUtils.loadCodeFromFile;
+import static htmlexport.common.ExportOptions.ExportFrom.OPENED_FILE;
+import static htmlexport.common.ExportOptions.ExportFrom.SELECTION;
+import static htmlexport.common.ExportOptions.ExportTo.CLIPBOARD;
+import static htmlexport.common.ExportOptions.ExportTo.DISK;
+import static htmlexport.common.ExportOptions.LineNumbering.AS_IN_EDITOR;
 
 /**
  * User: dima
@@ -229,17 +232,17 @@ public class ExportHtml_FuncTest extends LightCodeInsightTestCase {
         assertEquals(expectedCode, actualCode);
     }
 
-    protected DataContext getCurrentEditorDataContext() {
-        final DataContext defaultContext = super.getCurrentEditorDataContext();
-        return new DataContext() {
-            @Nullable
-            public Object getData(@NonNls String dataId) {
-                //noinspection deprecation
-                if (dataId.equals(DataConstants.VIRTUAL_FILE)) return myVirtualFile;
-                return defaultContext.getData(dataId);
-            }
-        };
-    }
+//    protected DataContext getCurrentEditorDataContext() {
+//        final DataContext defaultContext = super.getCurrentEditorDataContext();
+//        return new DataContext() {
+//            @Nullable
+//            public Object getData(@NonNls String dataId) {
+//                //noinspection deprecation
+//                if (dataId.equals(DataConstants.VIRTUAL_FILE)) return myVirtualFile;
+//                return defaultContext.getData(dataId);
+//            }
+//        };
+//    }
 
     private static String getClipboardContent() {
         try {
