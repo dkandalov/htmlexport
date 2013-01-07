@@ -1,0 +1,35 @@
+!!- export to Word, OO, mail client
+!- is there newline background if it really exists (e.g. in plugin.xml)
+!- is there memory leak in UI (see console after activating plugin in debug; try closing/reopening project)
+ - selection which starts from middle of line should be shifted
+ + make good description
+ + make options persistent
+   - persist outputDirectory on project level?
+ - why use UTF16?
+ - add "composite" default style
+ - grab features from copyashtml
+    - background for non-writable documents
+    !- "include warnings" option
+ - refactor to use template html
+
+ + make sure export works correctly as it is
+    - use full highlighting in func tests
+ - don't export file unless it's fully highlighted
+
+won't unless asked- build with java 1.5
+
+won't- use intellij logger? (review ISE exceptions usages)
+
+ - make it not necessary to resynchronize project files
+ - export multiple files at once
+ - make similar to default intellij export?
+   - add intellij help entry
+   - use resource bundle
+
+ - show border
+ - show border and filename with snippet export
+ - make font size, style configurable
+
+ - open file in browser
+
+ - more style/css options (what options?)

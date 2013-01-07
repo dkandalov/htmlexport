@@ -1,0 +1,20 @@
+ - fix all todos or mark them as todos2
+ - review code (optional)
+ - run DSM
+ - run Intellij code review
+
+ - rebuild project
+ - make sure all tests pass
+ - test plugin manually with java, xml, iws
+ - update plugin xml (version, change list)
+
+ - run plugin build from IntelliJ
+ - run add_apache2_license.rb
+ - update screenshot
+ - run pack_sources.sh (check what's been packed)
+
+ - commit changes
+ - upload plugin
+    - upload screenshots (in reverse order)
+    - upload jar
+    - upload sources (use separate "update" button click; check it)
